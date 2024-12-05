@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Все пользователи</title>
+</head>
+<body>
+<h2>Все пользователи:</h2>
+<br>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Эл.почта</th>
+    <th>Действия</th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.email}"></td>
+
+    <td>
+      <table>
+        <tr>
+          <td>
+            <form th:method="get" th:action="@{/users/edit}">
+              <input type="hidden" name="id" th:value="${user.id}" />
+              <input type="submit" value="Редактировать"/>
+            </form>
+          </td>
+          <td>
+            <form th:method="post" th:action="@{/users/delete}">
+              <input type="hidden" name="id" th:value="${user.id}" />
+              <input type="submit" value="Удалить"/>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      <form th:method="get" th:action="@{/users/new}">
+        <input type="submit" value="Добавить нового пользователя"/>
+      </form>
+    </td>
+    <td>
+      <form th:method="post" th:action="@{/users/deleteAll}">
+        <input type="submit" value="Удалить всех пользователей"/>
+      </form>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
